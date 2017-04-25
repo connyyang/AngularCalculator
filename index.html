@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Simple calculator using AngularJS">
+  <meta name="author" content="Michael Yu">
+  <title>Angular Calculator</title>
+  <link rel="stylesheet" href="lib/bootstrap-css/css/bootstrap.css">
+  <link rel="stylesheet" href="app/style.css">
+  <style>
+    body {
+        padding-top: 70px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+    button {
+      width: ;
+    }
+    </style>
+</head>
+<body ng-app="app">
+      <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container" ng-controller="headerCtrl as vm">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">{{vm.appName}}</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container" id="calculator" ng-controller="mainCtrl as vm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                      <div class="row">
+                        <div class="col-lg-8">
+                          <textarea class="form-control" ng-model="vm.display"></textarea>
+                        </div>
+                      </div>
+
+                      <div class="row top-10">
+                        <div class="col-lg-2 col-md-2 col-sm-2" ng-repeat="number in ['(', ')', '%']">
+                          <input-btn input="{{number}}" calculator="vm.calculator"></input-btn>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                          <operator-btn operator="AC" calculator="vm.calculator"></operator-btn>
+                        </div>
+                      </div>
+
+                      <div class="row top-10">
+                        <div class="col-lg-2 col-md-2 col-sm-2" ng-repeat="number in [7, 8, 9]">
+                          <input-btn input="{{number}}" calculator="vm.calculator"></input-btn>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                          <operator-btn operator="÷" calculator="vm.calculator"></operator-btn>
+                        </div>
+                      </div>
+
+                      <div class="row top-10">
+                        <div class="col-lg-2 col-md-2 col-sm-2" ng-repeat="number in [4, 5, 6]">
+                          <input-btn input="{{number}}" calculator="vm.calculator"></input-btn>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                          <operator-btn operator="×" calculator="vm.calculator"></operator-btn>
+                        </div>
+                      </div>
+
+                      <div class="row top-10">
+                        <div class="col-lg-2 col-md-2 col-sm-2" ng-repeat="number in [1, 2, 3]">
+                          <input-btn input="{{number}}" calculator="vm.calculator"></input-btn>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                          <operator-btn operator="-" calculator="vm.calculator"></operator-btn>
+                        </div>
+                      </div>
+
+                      <div class="row top-10">
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                          <input-btn input="0" calculator="vm.calculator"></input-btn>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                          <input-btn input="." calculator="vm.calculator"></input-btn>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                          <operator-btn operator="=" calculator="vm.calculator"></operator-btn>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                          <operator-btn operator="+" calculator="vm.calculator"></operator-btn>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="row">
+                          <button class="btn btn-default btn-danger" type="button" ng-click="vm.deleteAll()">delete all</button>
+                        </div>
+                        <div class="row">
+                          <table class="table table-striped">
+                            <caption>history of calculation</caption>
+                            <tr><th>date</th><th>expression</th><th>result</th></tr>
+                            <tr ng-repeat="result in vm.calculator.getResults()">
+                              <td>{{result.date | date:'medium'}}</td>
+                              <td>{{result.expression}}</td>
+                              <td>{{result.result}}</td>
+                            </tr>
+                          </table>
+                        </div>
+                    </div>
+
+                  </div>
+
+
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 col-lg-offset-1 text-center">
+            <hr class="small">
+            <p class="text-muted">Copyright © Michael Yu 2015</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  <script src="lib/jquery/jquery.js"></script>
+  <script src="lib/angular/angular.js"></script>
+  <script src="app/app.js"></script>
+  <script src="app/service/calculator.js"></script>
+  <script src="app/directive/input-button.js"></script>
+
+</body>
+</html>
